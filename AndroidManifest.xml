@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
-
+    <supports-screens android:normalScreens="false" android:largeScreens="true" android:requiresSmallestWidthDp="600" android:xlargeScreens="true" android:smallScreens="false"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
