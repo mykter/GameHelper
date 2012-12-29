@@ -1,14 +1,10 @@
 package org.macnair.gamehelper;
 
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.app.Activity;
 /**
  * An activity representing a list of Helpers. The
@@ -39,18 +35,8 @@ public class HelperListActivity extends Activity implements
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; show master list
-	        	FragmentTransaction ft = getFragmentManager().beginTransaction();
-	        	/*ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-	        	  .show(getFragmentManager().findFragmentById(R.id.helper_list))
-	        	  .commit();
-	        	*/
-	        	final long duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
 	        	View master = getFragmentManager().findFragmentById(R.id.helper_list).getView();
-	    		//View detail = findViewById(R.id.helper_detail_container);
-	    		//master.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
 	    		master.setVisibility(View.VISIBLE);
-	    		//master.animate().translationX(0).setDuration(duration);
-	        	//detail.animate().translationXBy(master.getWidth()).setDuration(duration);
 	        	
 	        	// Set the home icon to no longer be an up icon
 	        	ActionBar actionBar = getActionBar();
@@ -79,18 +65,8 @@ public class HelperListActivity extends Activity implements
 				.replace(R.id.helper_detail_container, (Fragment) fragment).commit();
 		
 		// Then hide the master list
-		/*FragmentTransaction ft = getFragmentManager().beginTransaction();
-    	  ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-    	  .hide(getFragmentManager().findFragmentById(R.id.helper_list))
-    	  .commit();
-    	*/
-		final long duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
 		View master = getFragmentManager().findFragmentById(R.id.helper_list).getView();
-		//View detail = findViewById(R.id.helper_detail_container);
 		master.setVisibility(View.GONE);
-		//master.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0));
-		//master.animate().translationX(-1 * master.getWidth()).setDuration(duration);
-    	//detail.animate().translationXBy(-1 * master.getWidth()).setDuration(duration);
     	
 		// Set the home icon to be an up icon
     	ActionBar actionBar = getActionBar();
