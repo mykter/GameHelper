@@ -7,17 +7,11 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
+    android:animateLayoutChanges="true"
     tools:context=".HelperListActivity" >
 
     <!--
-    This layout is a two-pane layout for the Helpers
-    master/detail flow. See res/values-large/refs.xml and
-    res/values-sw600dp/refs.xml for an example of layout aliases
-    that replace the single-pane version of the layout with
-    this two-pane version.
-
-    For more on layout aliases, see:
-    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    This layout is a two-pane layout for the Helpers master/detail flow. 
     -->
 
     <fragment
