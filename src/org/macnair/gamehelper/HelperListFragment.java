@@ -2,7 +2,7 @@ package org.macnair.gamehelper;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,7 +21,7 @@ import org.macnair.gamehelper.dummy.DummyContent;
 public class HelperListFragment extends ListFragment {
 
 	/**
-	 * The serialization (saved instance state) Bundle key representing the
+	 * The serialisation (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
 	 */
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
@@ -80,12 +80,16 @@ public class HelperListFragment extends ListFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		// Restore the previously serialized activated item position.
+		// Restore the previously serialised activated item position.
 		if (savedInstanceState != null
 				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
 			setActivatedPosition(savedInstanceState
 					.getInt(STATE_ACTIVATED_POSITION));
 		}
+		
+		// When setting CHOICE_MODE_SINGLE, ListView will automatically
+		// give items the 'activated' state when touched.
+		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 
 	@Override
@@ -123,21 +127,9 @@ public class HelperListFragment extends ListFragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (mActivatedPosition != ListView.INVALID_POSITION) {
-			// Serialize and persist the activated item position.
+			// Serialise and persist the activated item position.
 			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
 		}
-	}
-
-	/**
-	 * Turns on activate-on-click mode. When this mode is on, list items will be
-	 * given the 'activated' state when touched.
-	 */
-	public void setActivateOnItemClick(boolean activateOnItemClick) {
-		// When setting CHOICE_MODE_SINGLE, ListView will automatically
-		// give items the 'activated' state when touched.
-		getListView().setChoiceMode(
-				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-						: ListView.CHOICE_MODE_NONE);
 	}
 
 	private void setActivatedPosition(int position) {
