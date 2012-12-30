@@ -1,11 +1,16 @@
 package org.macnair.gamehelper;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.LayoutTransition;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.app.Activity;
+
 /**
  * An activity representing a list of Helpers. The
  * activity presents the list of items and item details side-by-side using two
@@ -26,6 +31,14 @@ public class HelperListActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_helper_list);
 
+		final ViewGroup twopane = (ViewGroup) findViewById(R.id.helper_list).getParent();
+		LayoutTransition transitioner = new LayoutTransition();
+		Animator anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
+		transitioner.setAnimator(LayoutTransition.DISAPPEARING, anim);
+		anim = AnimatorInflater.loadAnimator(this, R.animator.slide_in_left);
+		transitioner.setAnimator(LayoutTransition.APPEARING, anim);
+		twopane.setLayoutTransition(transitioner);
+        
 		// helper list can be accessed like this:
 		// ((HelperListFragment) getFragmentManager().findFragmentById(R.id.helper_list)).
 	}
