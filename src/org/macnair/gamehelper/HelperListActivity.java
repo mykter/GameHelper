@@ -2,13 +2,13 @@ package org.macnair.gamehelper;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.animation.LayoutTransition;
+import android.animation.AnimatorSet;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.app.Activity;
 
 /**
@@ -26,20 +26,12 @@ import android.app.Activity;
 public class HelperListActivity extends Activity implements
 		HelperListFragment.Callbacks {
 
+    private static final String TAG = "MyHelperListActivity";  
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_helper_list);
-
-		
-		/*LayoutTransition transitioner = new LayoutTransition();
-		transitioner.setAnimator(LayoutTransition.DISAPPEARING, anim);
-		anim = AnimatorInflater.loadAnimator(this, R.animator.slide_in_left);
-		transitioner.setAnimator(LayoutTransition.APPEARING, anim);
-		twopane.setLayoutTransition(transitioner);*/
-        
-		// helper list can be accessed like this:
-		// ((HelperListFragment) getFragmentManager().findFragmentById(R.id.helper_list)).
 	}
 
 	@Override
@@ -47,8 +39,16 @@ public class HelperListActivity extends Activity implements
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; show master list
-	        	View master = getFragmentManager().findFragmentById(R.id.helper_list).getView();
-	    		master.setVisibility(View.VISIBLE);
+	    		final View helper_list = findViewById(R.id.helper_list);
+	    		final View detail_container = findViewById(R.id.helper_detail_container);
+	    		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tozero);
+	    		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_todivider);
+	    		master_anim.setTarget(helper_list);
+	    		master_anim.start();
+	    		detail_anim.setTarget(detail_container);
+	    		AnimatorSet animSet = new AnimatorSet();
+	    		animSet.play(detail_anim).with(master_anim);
+	    		animSet.start();
 	        	
 	        	// Set the home icon to no longer be an up icon
 	        	ActionBar actionBar = getActionBar();
@@ -79,13 +79,14 @@ public class HelperListActivity extends Activity implements
 		// Then hide the master list
 		final View helper_list = findViewById(R.id.helper_list);
 		final View detail_container = findViewById(R.id.helper_detail_container);
-		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
-		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
-		anim.setTarget(helper_list);
-		anim.start();
+		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tonegativedivider);
+		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tozero);
+		master_anim.setTarget(helper_list);
+		detail_anim.setTarget(detail_container);
+		AnimatorSet animSet = new AnimatorSet();
+		animSet.play(detail_anim).with(master_anim);
+		animSet.start();
 		
-		//master.setVisibility(View.GONE);
-    	
 		// Set the home icon to be an up icon
     	ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

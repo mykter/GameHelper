@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
-    android:showDividers="middle"
     android:animateLayoutChanges="false"
+    android:orientation="horizontal"
     tools:context=".HelperListActivity" >
-    <!-- animateLayoutChanges="true" is hard to control properly -->
+
+    <!-- animateLayoutChanges="true" is hard to control properly
+        these two show up the flaky animation:
+        android:showDividers="middle"
+        android:divider="?android:attr/dividerHorizontal" -->
 
     <!--
     This layout is a two-pane layout for the Helpers master/detail flow. 
