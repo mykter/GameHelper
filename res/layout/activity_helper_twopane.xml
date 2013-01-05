@@ -7,8 +7,9 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    android:animateLayoutChanges="true"
+    android:animateLayoutChanges="false"
     tools:context=".HelperListActivity" >
+    <!-- animateLayoutChanges="true" is hard to control properly -->
 
     <!--
     This layout is a two-pane layout for the Helpers master/detail flow. 

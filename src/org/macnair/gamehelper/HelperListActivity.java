@@ -31,13 +31,12 @@ public class HelperListActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_helper_list);
 
-		final ViewGroup twopane = (ViewGroup) findViewById(R.id.helper_list).getParent();
-		LayoutTransition transitioner = new LayoutTransition();
-		Animator anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
+		
+		/*LayoutTransition transitioner = new LayoutTransition();
 		transitioner.setAnimator(LayoutTransition.DISAPPEARING, anim);
 		anim = AnimatorInflater.loadAnimator(this, R.animator.slide_in_left);
 		transitioner.setAnimator(LayoutTransition.APPEARING, anim);
-		twopane.setLayoutTransition(transitioner);
+		twopane.setLayoutTransition(transitioner);*/
         
 		// helper list can be accessed like this:
 		// ((HelperListFragment) getFragmentManager().findFragmentById(R.id.helper_list)).
@@ -78,8 +77,14 @@ public class HelperListActivity extends Activity implements
 				.replace(R.id.helper_detail_container, (Fragment) fragment).commit();
 		
 		// Then hide the master list
-		View master = getFragmentManager().findFragmentById(R.id.helper_list).getView();
-		master.setVisibility(View.GONE);
+		final View helper_list = findViewById(R.id.helper_list);
+		final View detail_container = findViewById(R.id.helper_detail_container);
+		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
+		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_out_left);
+		anim.setTarget(helper_list);
+		anim.start();
+		
+		//master.setVisibility(View.GONE);
     	
 		// Set the home icon to be an up icon
     	ActionBar actionBar = getActionBar();
