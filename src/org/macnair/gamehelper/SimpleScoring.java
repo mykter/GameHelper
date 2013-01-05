@@ -7,14 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.macnair.gamehelper.dummy.DummyContent;
-
 /**
  * A fragment representing a single Helper detail screen. This fragment is
  * either contained in a {@link HelperListActivity} in two-pane mode (on
  * tablets) or a {@link HelperDetailActivity} on handsets.
  */
-public class HelperDetailFragment extends Fragment {
+public class SimpleScoring extends Fragment {
+	final static String NAME = "Simple Scoring";
+	
+	@Override
+	public String toString() {
+		return NAME;
+	}
+	
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -22,28 +27,15 @@ public class HelperDetailFragment extends Fragment {
 	public static final String ARG_ITEM_ID = "item_id";
 
 	/**
-	 * The dummy content this fragment is presenting.
-	 */
-	private DummyContent.DummyItem mItem;
-
-	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
-	public HelperDetailFragment() {
+	public SimpleScoring() {
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
-					ARG_ITEM_ID));
-		}
 	}
 
 	@Override
@@ -53,10 +45,8 @@ public class HelperDetailFragment extends Fragment {
 				container, false);
 
 		// Show the dummy content as text in a TextView.
-		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.helper_detail))
-					.setText(mItem.content);
-		}
+		((TextView) rootView.findViewById(R.id.helper_detail))
+					.setText("Simple Scorer!");
 
 		return rootView;
 	}

@@ -6,7 +6,6 @@ import android.animation.AnimatorSet;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.app.Activity;
@@ -18,7 +17,7 @@ import android.app.Activity;
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link HelperListFragment} and the item details (if present) is a
- * {@link HelperDetailFragment}.
+ * {@link SimpleScoring}.
  * <p>
  * This activity also implements the required
  * {@link HelperListFragment.Callbacks} interface to listen for item selections.
@@ -26,7 +25,8 @@ import android.app.Activity;
 public class HelperListActivity extends Activity implements
 		HelperListFragment.Callbacks {
 
-    private static final String TAG = "MyHelperListActivity";  
+    @SuppressWarnings("unused")
+	private static final String TAG = "MyHelperListActivity";  
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +66,10 @@ public class HelperListActivity extends Activity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
-		// In two-pane mode, show the detail view in this activity by
-		// adding or replacing the detail fragment using a
+		// show the detail view in this activity by
+		// adding or replacing the relevant helper fragment using a
 		// fragment transaction.
-		Bundle arguments = new Bundle();
-		arguments.putString(HelperDetailFragment.ARG_ITEM_ID, id);
-		HelperDetailFragment fragment = new HelperDetailFragment();
-		fragment.setArguments(arguments);
+		SimpleScoring fragment = new SimpleScoring();
 		getFragmentManager().beginTransaction()
 				.replace(R.id.helper_detail_container, (Fragment) fragment).commit();
 		
