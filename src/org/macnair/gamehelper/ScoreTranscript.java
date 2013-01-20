@@ -70,8 +70,12 @@ public class ScoreTranscript extends Fragment implements OnClickListener, OnKeyL
 	
 	private void addScore() {
 	    String text = mAddScoreText.getText().toString();
-	    mAdapter.add(Integer.parseInt(text));
+	    try {
+	    	mAdapter.add(Integer.parseInt(text));
+	    } catch (java.lang.NumberFormatException e) { }
 	    mAddScoreText.setText(null);
+	    
+	    updateRunningTotal();
 	}
 	 
 	public void onClick(View v) {
@@ -89,4 +93,13 @@ public class ScoreTranscript extends Fragment implements OnClickListener, OnKeyL
         }
         return false;
     }
+	
+	public void updateRunningTotal() {
+		Integer sum = 0;
+		for (Integer i:mScores) {
+			sum += i;
+		}
+		TextView mRunningTotalText = (TextView) getView().findViewById(R.id.running_total);
+		mRunningTotalText.setText(sum.toString());
+	}
 }
