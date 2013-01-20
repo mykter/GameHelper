@@ -2,15 +2,14 @@ package org.macnair.gamehelper;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * A fragment representing a single Helper detail screen. This fragment is
- * either contained in a {@link HelperListActivity} in two-pane mode (on
- * tablets) or a {@link HelperDetailActivity} on handsets.
+ * contained in a {@link HelperListActivity}
  */
 public class SimpleScoring extends Fragment {
 	final static String NAME = "Simple Scoring";
@@ -20,12 +19,6 @@ public class SimpleScoring extends Fragment {
 		return NAME;
 	}
 	
-	/**
-	 * The fragment argument representing the item ID that this fragment
-	 * represents.
-	 */
-	public static final String ARG_ITEM_ID = "item_id";
-
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -41,13 +34,16 @@ public class SimpleScoring extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_helper_detail,
-				container, false);
+		View rootView = inflater.inflate(R.layout.simple_scorer, container, false);
 
-		// Show the dummy content as text in a TextView.
-		((TextView) rootView.findViewById(R.id.helper_detail))
-					.setText("Simple Scorer!");
-
+		Fragment transcriptFragment[] = {new ScoreTranscript(), new ScoreTranscript(), new ScoreTranscript(), new ScoreTranscript()};
+		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+		transaction.add(R.id.simple_scorer, transcriptFragment[0]);
+		transaction.add(R.id.simple_scorer, transcriptFragment[1]);
+		transaction.add(R.id.simple_scorer, transcriptFragment[2]);
+		transaction.add(R.id.simple_scorer, transcriptFragment[3]);
+		transaction.commit();
 		return rootView;
 	}
 }
+
