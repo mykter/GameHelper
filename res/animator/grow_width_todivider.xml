@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <!--  create an animation that moves x and width together - xPosFillRight ?
+http://stackoverflow.com/questions/10854940/android-using-objectanimator-to-translate-a-view-with-fractional-values-of-the 
+-->
+<set>
+  <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:propertyName="width" 
+    android:valueType="floatType"
+    android:valueTo="1000"
+    android:duration="@android:integer/config_mediumAnimTime"/> 
+</set>
