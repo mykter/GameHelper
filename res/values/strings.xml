@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">GameHelper</string>
     <string name="title_helper_detail">Helper Detail</string>
     <string name="transcript_subtotal">Subtotal</string>
-
+	<string name="player_chooser">Players</string>
 </resources>

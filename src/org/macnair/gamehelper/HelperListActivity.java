@@ -5,7 +5,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.NumberPicker;
 import android.app.Activity;
 
 /**
@@ -32,6 +35,18 @@ public class HelperListActivity extends Activity implements
 		setContentView(R.layout.activity_helper_list);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    getMenuInflater().inflate(R.menu.players, menu);
+	    NumberPicker numPlayers = (NumberPicker) menu.findItem(R.id.player_chooser).getActionView();
+	    numPlayers.setMinValue(1);
+	    numPlayers.setValue(2);
+	    numPlayers.setVerticalScrollBarEnabled(true);
+	    numPlayers.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
+	   //numPlayers.setWrapSelectorWheel(true);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
