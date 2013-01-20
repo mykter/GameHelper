@@ -3,5 +3,6 @@
 
     <string name="app_name">GameHelper</string>
     <string name="title_helper_detail">Helper Detail</string>
+    <string name="transcript_subtotal">Subtotal</string>
 
 </resources>
