@@ -1,13 +1,11 @@
 package org.macnair.gamehelper;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.app.Activity;
 
 /**
@@ -39,16 +37,8 @@ public class HelperListActivity extends Activity implements
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; show master list
-	    		final View helper_list = findViewById(R.id.helper_list);
-	    		final View detail_container = findViewById(R.id.helper_detail_container);
-	    		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tozero);
-	    		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_todivider);
-	    		master_anim.setTarget(helper_list);
-	    		master_anim.start();
-	    		detail_anim.setTarget(detail_container);
-	    		AnimatorSet animSet = new AnimatorSet();
-	    		animSet.play(detail_anim).with(master_anim);
-	    		animSet.start();
+	    		FragmentManager fm = getFragmentManager();
+	    		fm.beginTransaction().show(fm.findFragmentById(R.id.helper_list)).commit();
 	        	
 	        	// Set the home icon to no longer be an up icon
 	        	ActionBar actionBar = getActionBar();
@@ -69,20 +59,13 @@ public class HelperListActivity extends Activity implements
 		// show the detail view in this activity by
 		// adding or replacing the relevant helper fragment using a
 		// fragment transaction.
+		FragmentManager fm = getFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
 		SimpleScoring fragment = new SimpleScoring();
-		getFragmentManager().beginTransaction()
-				.replace(R.id.helper_detail_container, (Fragment) fragment).commit();
-		
+		ft.replace(R.id.helper_detail_container, (Fragment) fragment);
 		// Then hide the master list
-		final View helper_list = findViewById(R.id.helper_list);
-		final View detail_container = findViewById(R.id.helper_detail_container);
-		Animator master_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tonegativedivider);
-		Animator detail_anim = AnimatorInflater.loadAnimator(this, R.animator.slide_left_tozero);
-		master_anim.setTarget(helper_list);
-		detail_anim.setTarget(detail_container);
-		AnimatorSet animSet = new AnimatorSet();
-		animSet.play(detail_anim).with(master_anim);
-		animSet.start();
+		ft.hide(fm.findFragmentById(R.id.helper_list));
+		ft.commit();
 		
 		// Set the home icon to be an up icon
     	ActionBar actionBar = getActionBar();
