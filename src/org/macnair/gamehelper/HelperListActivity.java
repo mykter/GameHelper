@@ -63,12 +63,12 @@ public class HelperListActivity extends Activity implements
 		FragmentTransaction ft = fm.beginTransaction();
 		SimpleScoring fragment = new SimpleScoring();
 		ft.replace(R.id.helper_detail_container, (Fragment) fragment);
-		// Then hide the master list
-		ft.hide(fm.findFragmentById(R.id.helper_list));
 		ft.commit();
-		
-		// Set the home icon to be an up icon
-    	ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+		// Then hide the master list, in a separate transaction so the first back press merely reveals the list
+		ft = fm.beginTransaction();
+		ft.hide(fm.findFragmentById(R.id.helper_list));
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 }
