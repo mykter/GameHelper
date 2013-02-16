@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="org.macnair.gamehelper.HelperListActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:screenOrientation="sensorLandscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,7 @@
         <activity
             android:name="org.macnair.gamehelper.HelperDetailActivity"
             android:label="@string/title_helper_detail"
-            android:parentActivityName=".HelperListActivity" >
+            android:parentActivityName=".HelperListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HelperListActivity" />
