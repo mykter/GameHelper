@@ -68,6 +68,7 @@ public class HelperListActivity extends Activity implements
 		// Then hide the master list, in a separate transaction so the first back press merely reveals the list
 		ft = fm.beginTransaction();
 		ft.hide(fm.findFragmentById(R.id.helper_list));
+		// Up icon management is done by HelperListFragment.onHiddenChanged
 		ft.addToBackStack(null);
 		ft.commit();
 	}

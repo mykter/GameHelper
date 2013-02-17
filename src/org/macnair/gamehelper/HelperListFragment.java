@@ -134,6 +134,12 @@ public class HelperListFragment extends ListFragment {
 		}
 	}
 
+	@Override
+	public void onHiddenChanged (boolean hidden) {
+		// Set the home icon to be an up icon if the list is hidden
+    	getActivity().getActionBar().setDisplayHomeAsUpEnabled(hidden);
+	}
+	
 	private void setActivatedPosition(int position) {
 		if (position == ListView.INVALID_POSITION) {
 			getListView().setItemChecked(mActivatedPosition, false);
