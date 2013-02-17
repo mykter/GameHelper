@@ -2,6 +2,7 @@ package org.macnair.gamehelper;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -137,7 +138,9 @@ public class HelperListFragment extends ListFragment {
 	@Override
 	public void onHiddenChanged (boolean hidden) {
 		// Set the home icon to be an up icon if the list is hidden
-    	getActivity().getActionBar().setDisplayHomeAsUpEnabled(hidden);
+    	ActionBar ab = getActivity().getActionBar();
+    	ab.setDisplayHomeAsUpEnabled(hidden);
+    	ab.setHomeButtonEnabled(hidden); // only clickable if it's an up
 	}
 	
 	private void setActivatedPosition(int position) {
