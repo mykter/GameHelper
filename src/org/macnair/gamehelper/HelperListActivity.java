@@ -1,6 +1,5 @@
 package org.macnair.gamehelper;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -37,12 +36,9 @@ public class HelperListActivity extends Activity implements
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; show master list
+	        	// Note the reveal isn't added to the back stack
 	    		FragmentManager fm = getFragmentManager();
 	    		fm.beginTransaction().show(fm.findFragmentById(R.id.helper_list)).commit();
-	        	
-	        	// Set the home icon to no longer be an up icon
-	        	ActionBar actionBar = getActionBar();
-	            actionBar.setDisplayHomeAsUpEnabled(false);
 	            
 	            return true;
 	        default:
@@ -61,14 +57,17 @@ public class HelperListActivity extends Activity implements
 		// fragment transaction.
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		SimpleScoring fragment = new SimpleScoring();
-		ft.replace(R.id.helper_detail_container, (Fragment) fragment);
-		// Then hide the master list
+		if (fm.findFragmentByTag(id) == null) {
+			// TODO: pick the helper based on id and helper.NAME ? 
+			SimpleScoring fragment = new SimpleScoring();
+			ft.replace(R.id.helper_detail_container, (Fragment) fragment, id);
+			ft.addToBackStack("Select Helper");
+		}
+		
+		// Then hide the master list. In the same transaction pressing back will remove the added fragment.
+		// The user should use "Up" to reveal the list without undoing the action
+		// Up icon management is done by HelperListFragment.onHiddenChanged
 		ft.hide(fm.findFragmentById(R.id.helper_list));
 		ft.commit();
-		
-		// Set the home icon to be an up icon
-    	ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 }
