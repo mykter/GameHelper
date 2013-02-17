@@ -39,10 +39,6 @@ public class HelperListActivity extends Activity implements
 	            // app icon in action bar clicked; show master list
 	    		FragmentManager fm = getFragmentManager();
 	    		fm.beginTransaction().show(fm.findFragmentById(R.id.helper_list)).commit();
-	        	
-	        	// Set the home icon to no longer be an up icon
-	        	ActionBar actionBar = getActionBar();
-	            actionBar.setDisplayHomeAsUpEnabled(false);
 	            
 	            return true;
 	        default:
