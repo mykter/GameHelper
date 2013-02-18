@@ -34,8 +34,10 @@
    	 	android:layout_height="wrap_content"
     	android:gravity="right">
     	
+        <!-- Tried using TextAppearance="@android:style/TextAppearance.Large.Inverse.NumberPickerInputText", but not visible enough -->
 		<TextView android:id="@+id/running_total"
-		    android:textAppearance="@android:style/TextAppearance.Large.Inverse"
+		    android:textSize="26sp"
+		    android:textColor="#606060"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:textIsSelectable="false"
