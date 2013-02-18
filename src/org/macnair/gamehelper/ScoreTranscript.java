@@ -55,9 +55,7 @@ public class ScoreTranscript extends Fragment implements OnClickListener, OnKeyL
         mAddScoreText.setOnClickListener(this);
         mAddScoreText.setOnKeyListener(this);
 		
-		ListView transcript = (ListView) rootView.findViewById(R.id.list_transcript);
-		
-		transcript.setOnItemClickListener(new OnItemClickListener() {
+		mTranscript.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = ((TextView)view).getText().toString();

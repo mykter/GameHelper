@@ -9,8 +9,7 @@
    
     <!-- api demos views/lists/12 transcript   (and 08 photos for controls at the top) -->
     
-    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/button_transcript_subtotal"
+    <Button android:id="@+id/button_transcript_subtotal"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="@string/transcript_subtotal"
@@ -26,9 +25,10 @@
     <EditText android:id="@+id/text_transcript_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:inputType="numberSigned" />
+        android:inputType="numberSigned" 
+        android:imeActionLabel="@string/transcript_add_button"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout 
     	android:orientation="horizontal"
     	android:layout_width="match_parent"
    	 	android:layout_height="wrap_content"
@@ -38,6 +38,7 @@
 		    android:textAppearance="@android:style/TextAppearance.Large.Inverse"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
+		    android:textIsSelectable="false"
 		    />
 	</LinearLayout>
 </LinearLayout>
