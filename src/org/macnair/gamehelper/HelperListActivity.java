@@ -1,14 +1,14 @@
 package org.macnair.gamehelper;
 
 import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.Toast;
 import android.app.Activity;
 
 /**
@@ -24,7 +24,8 @@ import android.app.Activity;
  * {@link HelperListFragment.Callbacks} interface to listen for item selections.
  */
 public class HelperListActivity extends Activity implements
-		HelperListFragment.Callbacks {
+		HelperListFragment.Callbacks, 
+		PlayerDialog.PlayerDialogListener {
 
     @SuppressWarnings("unused")
 	private static final String TAG = "MyHelperListActivity";  
@@ -38,12 +39,6 @@ public class HelperListActivity extends Activity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    getMenuInflater().inflate(R.menu.players, menu);
-	    NumberPicker numPlayers = (NumberPicker) menu.findItem(R.id.player_chooser).getActionView();
-	    numPlayers.setMinValue(1);
-	    numPlayers.setValue(2);
-	    numPlayers.setVerticalScrollBarEnabled(true);
-	    numPlayers.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
-	   //numPlayers.setWrapSelectorWheel(true);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -60,6 +55,11 @@ public class HelperListActivity extends Activity implements
 	            actionBar.setDisplayHomeAsUpEnabled(false);
 	            
 	            return true;
+	            
+	        case R.id.player_chooser:
+	        	DialogFragment pc = new PlayerDialog();
+	        	pc.show(getFragmentManager(),"players");
+	        	
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -85,5 +85,11 @@ public class HelperListActivity extends Activity implements
 		// Set the home icon to be an up icon
     	ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public void onPlayerDialogOK(DialogFragment dialog) {
+		// TODO Pass change in players on to active helper
+		Toast.makeText(this, "Got players", Toast.LENGTH_SHORT).show();
 	}
 }
