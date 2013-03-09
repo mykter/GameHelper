@@ -1,5 +1,8 @@
 package org.macnair.gamehelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -12,8 +15,8 @@ import android.widget.Toast;
 import android.app.Activity;
 
 /**
- * An activity representing a list of Helpers. The
- * activity presents the list of items and item details side-by-side using two
+ * An activity representing a list of Helpers.
+ * The activity presents the list of items and item details side-by-side using two
  * vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
@@ -29,11 +32,14 @@ public class HelperListActivity extends Activity implements
 
     @SuppressWarnings("unused")
 	private static final String TAG = "MyHelperListActivity";  
-	
+
+    private PlayersModel pm = null;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_helper_list);
+		pm = new PlayersModel();
 	}
 
 	@Override
@@ -58,6 +64,12 @@ public class HelperListActivity extends Activity implements
 	            
 	        case R.id.player_chooser:
 	        	DialogFragment pc = new PlayerDialog();
+	        	
+	        	// Pass the saved Players as an array argument 
+	        	Bundle bdl = new Bundle();
+	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, (ArrayList<Player>)pm.getPlayers());
+	        	pc.setArguments(bdl);
+	        	
 	        	pc.show(getFragmentManager(),"players");
 	        	
 	        default:
@@ -88,7 +100,7 @@ public class HelperListActivity extends Activity implements
 	}
 
 	@Override
-	public void onPlayerDialogOK(DialogFragment dialog) {
+	public void onPlayerDialogOK(List<Player> selectedPlayers) {
 		// TODO Pass change in players on to active helper
 		Toast.makeText(this, "Got players", Toast.LENGTH_SHORT).show();
 	}
