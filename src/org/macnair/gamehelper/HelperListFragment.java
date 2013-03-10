@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.macnair.gamehelper.SimpleScoring;
+import org.macnair.gamehelper.helpers.SimpleScoring;
 
 /**
  * A list fragment representing a list of Helpers. This fragment also supports

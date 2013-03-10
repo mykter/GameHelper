@@ -1,4 +1,10 @@
-package org.macnair.gamehelper;
+package org.macnair.gamehelper.helpers;
+
+import org.macnair.gamehelper.HelperListActivity;
+import org.macnair.gamehelper.R;
+import org.macnair.gamehelper.ScoreTranscript;
+import org.macnair.gamehelper.R.id;
+import org.macnair.gamehelper.R.layout;
 
 import android.os.Bundle;
 import android.app.Fragment;

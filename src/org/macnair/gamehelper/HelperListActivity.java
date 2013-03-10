@@ -3,6 +3,8 @@ package org.macnair.gamehelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.macnair.gamehelper.helpers.SimpleScoring;
+
 import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -67,7 +69,8 @@ public class HelperListActivity extends Activity implements
 	        	
 	        	// Pass the saved Players as an array argument 
 	        	Bundle bdl = new Bundle();
-	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, (ArrayList<Player>)pm.getSortedPlayers(Player.SEEN_THEN_NAME_ORDER));
+	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, 
+	        			(ArrayList<Player>)pm.getSortedPlayers(Player.SEEN_THEN_NAME_ORDER));
 	        	pc.setArguments(bdl);
 	        	
 	        	pc.show(getFragmentManager(),"players");
@@ -101,6 +104,7 @@ public class HelperListActivity extends Activity implements
 
 	@Override
 	public void onPlayerDialogOK(List<Player> selectedPlayers) {
+		// Register the selected (named) players as having been seen
 		for (Player p : selectedPlayers) {
 			if (! p.isAnonymous()) {
 				p.setSeenNow();
