@@ -1,7 +1,7 @@
 package org.macnair.gamehelper;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,13 +9,13 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.ArrayAdapter;
 
 public class PlayerDialog extends DialogFragment {
 	/* The activity that creates an instance of this dialog fragment must
@@ -24,6 +24,8 @@ public class PlayerDialog extends DialogFragment {
     public interface PlayerDialogListener {
         public void onPlayerDialogOK(List<Player> selectedPlayers);
     }
+    
+    private static final String TAG = "PlayerDialog";
     
     public final static String ARG_PLAYERS="players";
     public final static String ARG_MAX_PLAYERS="max";
@@ -64,17 +66,10 @@ public class PlayerDialog extends DialogFragment {
         
         // Populate the list with the saved players (Player.toString)
         players = getArguments().getParcelableArrayList(ARG_PLAYERS);
-        ListView savedPlayers = (ListView) pdView.findViewById(R.id.player_list);
-        savedPlayers.setAdapter(new ArrayAdapter<Player>(getActivity(),R.layout.dialog_player_select_item, R.id.player_select_name, players.toArray(new Player[players.size()])));
+        ListView savedPlayers = (ListView) pdView.findViewById(R.id.player_select_list);
+        savedPlayers.setAdapter(new ArrayAdapter<Player>(getActivity(),R.layout.dialog_player_select_item, players.toArray(new Player[players.size()])));
         savedPlayers.setItemsCanFocus(false); // to allow entire row to handle touch events
-        savedPlayers.setOnItemClickListener(new ListView.OnItemClickListener() { // toggle checked on touch
-        	 @Override
-             public void onItemClick(AdapterView<?> a, View v, int i, long l) {
-        		 CheckBox box = (CheckBox) v.findViewById(R.id.player_select_checkbox);
-        		 box.setChecked(!box.isChecked());
-        	 }
-        });
-        
+              
         builder.setTitle(R.string.players)
         	.setView(pdView)
         	.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -84,15 +79,29 @@ public class PlayerDialog extends DialogFragment {
             })
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             	public void onClick(DialogInterface dialog, int id) {
-            		List<Player> players = new ArrayList<Player>();
-            		players.add(new Player(true,"Player 1"));
-            		mListener.onPlayerDialogOK(players);
+            		List<Player> selectedPlayers = new ArrayList<Player>();
+            		
+            		NumberPicker anon = (NumberPicker) PlayerDialog.this.getDialog().findViewById(R.id.anonymous_players);
+            		for (int i = 0; i<anon.getValue(); i++) {
+            			selectedPlayers.add(new Player(true, getActivity().getString(R.string.anonymous_prefix) + (i + 1)));
+            		}
+            		
+            		ListView savedPlayers = (ListView) PlayerDialog.this.getDialog().findViewById(R.id.player_select_list);
+            		SparseBooleanArray checked = savedPlayers.getCheckedItemPositions();
+            		// Note getCheckedItemPositions only works if using a Checkable item in the list, like CheckedTextView
+            		for (int i = 0; i < savedPlayers.getCount(); i++)
+                    {
+                        if(checked.get(i) == true) {
+                        	selectedPlayers.add((Player) savedPlayers.getItemAtPosition(i));
+                        	Log.d(TAG, "Selected player " + selectedPlayers.get(selectedPlayers.size() -1));
+                        }
+                    }     
+            		
+            		mListener.onPlayerDialogOK(selectedPlayers);
             	}
             });
         
         // Create the AlertDialog object and return it
         return builder.create();
 	}
-
 }
-

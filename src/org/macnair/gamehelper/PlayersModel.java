@@ -20,26 +20,13 @@ public class PlayersModel {
 		players.add(new Player(false,"Popov"));
 		players.add(new Player(false,"Bonshun"));
 		players.add(new Player(false,"Bootster"));
-		
+		players.add(new Player(false,"Duck"));
+		players.add(new Player(false,"Edward"));
+		players.add(new Player(false,"James"));
 	}
 	
-	public static final int SORT_RECENT = 0;
-	public static final int SORT_NAME = 1;
-	public List<Player> getPlayers(int sort) {
-		Comparator<Player> comp;
-		switch(sort) {
-			case SORT_RECENT: // TODO
-			case SORT_NAME:
-				comp = new Comparator<Player>() {
-				    public int compare(Player p1, Player p2) {
-				        return p1.getName().compareTo(p2.getName());
-				    }
-				};
-				break;
-			default:
-				throw new RuntimeException("Invalid sort order provided to getPlayers: " + sort);
-		}
-		
+	// Pass in a comparator such as Player.SEEN_ORDER
+	public List<Player> getSortedPlayers(Comparator<Player> comp) {
 		List<Player> sortedPlayers = new ArrayList<Player>(players);
 		Collections.sort(sortedPlayers, comp);
 		return sortedPlayers;

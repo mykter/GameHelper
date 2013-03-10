@@ -67,7 +67,7 @@ public class HelperListActivity extends Activity implements
 	        	
 	        	// Pass the saved Players as an array argument 
 	        	Bundle bdl = new Bundle();
-	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, (ArrayList<Player>)pm.getPlayers());
+	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, (ArrayList<Player>)pm.getSortedPlayers(Player.SEEN_THEN_NAME_ORDER));
 	        	pc.setArguments(bdl);
 	        	
 	        	pc.show(getFragmentManager(),"players");
@@ -101,7 +101,13 @@ public class HelperListActivity extends Activity implements
 
 	@Override
 	public void onPlayerDialogOK(List<Player> selectedPlayers) {
+		for (Player p : selectedPlayers) {
+			if (! p.isAnonymous()) {
+				p.setSeenNow();
+			}
+		}
+		
 		// TODO Pass change in players on to active helper
-		Toast.makeText(this, "Got players", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Got " + selectedPlayers.size() + " players", Toast.LENGTH_SHORT).show();
 	}
 }

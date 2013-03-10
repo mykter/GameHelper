@@ -5,4 +5,5 @@
     <string name="transcript_subtotal">Subtotal</string>
 	<string name="players">Players</string>
 	<string name="anonymous">Anonymous Players</string>
+	<string name="anonymous_prefix">Player </string>
 </resources>

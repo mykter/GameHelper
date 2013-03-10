@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/player_select_item" 
+	android:paddingLeft="20dip" 
+	android:paddingRight="20dip" 
+	android:paddingTop="10dip"
+	android:paddingBottom="10dip" 
+	android:layout_width="match_parent" 
 	android:layout_height="?android:attr/listPreferredItemHeight" 
-	>
-	
-	<TextView android:id="@+id/player_select_name"
-		android:layout_width="wrap_content"
-	    android:layout_height="fill_parent"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textIsSelectable="false"
-	    android:layout_alignParentLeft="true"
-	    android:layout_centerVertical="true"
-	    android:gravity="center_vertical"
-	    /> <!-- need to set gravity for text position -->
-	    
-	<CheckBox android:id="@+id/player_select_checkbox"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"    
-	    android:layout_centerVertical="true"
-	    android:focusable="false"
-		android:focusableInTouchMode="false"
-	    />
-</RelativeLayout>
+	android:gravity="center_vertical"
+	android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+	/>
