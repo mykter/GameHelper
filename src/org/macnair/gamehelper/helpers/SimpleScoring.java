@@ -1,8 +1,15 @@
-package org.macnair.gamehelper;
+package org.macnair.gamehelper.helpers;
 
-import android.os.Bundle;
+import java.util.List;
+
+import org.macnair.gamehelper.HelperListActivity;
+import org.macnair.gamehelper.Player;
+import org.macnair.gamehelper.R;
+import org.macnair.gamehelper.ScoreTranscript;
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +18,9 @@ import android.view.ViewGroup;
  * A fragment representing a single Helper detail screen. This fragment is
  * contained in a {@link HelperListActivity}
  */
-public class SimpleScoring extends Fragment {
+public class SimpleScoring
+		extends Fragment
+		implements HelperListActivity.Helper {
 	final static String NAME = "Simple Scoring";
 	
 	@Override
@@ -36,14 +45,19 @@ public class SimpleScoring extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.simple_scorer, container, false);
 
-		Fragment transcriptFragment[] = {new ScoreTranscript(), new ScoreTranscript(), new ScoreTranscript(), new ScoreTranscript()};
-		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-		transaction.add(R.id.simple_scorer, transcriptFragment[0]);
-		transaction.add(R.id.simple_scorer, transcriptFragment[1]);
-		transaction.add(R.id.simple_scorer, transcriptFragment[2]);
-		transaction.add(R.id.simple_scorer, transcriptFragment[3]);
-		transaction.commit();
+		updatePlayers(null);
 		return rootView;
+	}
+
+	@Override
+	public void updatePlayers(List<Player> newPlayers) {
+		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+		if (newPlayers != null) {
+			for (Player p : newPlayers) {
+				transaction.add(R.id.simple_scorer, new ScoreTranscript());
+			}
+			transaction.commit();
+		}
 	}
 }
 
