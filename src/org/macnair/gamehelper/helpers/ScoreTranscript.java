@@ -1,6 +1,11 @@
-package org.macnair.gamehelper;
+package org.macnair.gamehelper.helpers;
 
 import java.util.ArrayList;
+
+import org.macnair.gamehelper.HelperListActivity;
+import org.macnair.gamehelper.R;
+import org.macnair.gamehelper.R.id;
+import org.macnair.gamehelper.R.layout;
 
 import android.app.Fragment;
 import android.os.Bundle;

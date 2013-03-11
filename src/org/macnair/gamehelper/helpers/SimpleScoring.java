@@ -5,7 +5,6 @@ import java.util.List;
 import org.macnair.gamehelper.HelperListActivity;
 import org.macnair.gamehelper.Player;
 import org.macnair.gamehelper.R;
-import org.macnair.gamehelper.ScoreTranscript;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
