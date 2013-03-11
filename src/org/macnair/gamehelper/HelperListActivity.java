@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.macnair.gamehelper.helpers.SimpleScoring;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
