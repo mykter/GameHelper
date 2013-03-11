@@ -32,7 +32,6 @@ public class HelperListActivity extends Activity implements
 		HelperListFragment.Callbacks, 
 		PlayerDialog.PlayerDialogListener {
 
-    @SuppressWarnings("unused")
 	private static final String TAG = "MyHelperListActivity";  
 
     private PlayersModel pm = null;

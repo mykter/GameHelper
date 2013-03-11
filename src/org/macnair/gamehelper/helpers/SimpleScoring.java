@@ -1,18 +1,15 @@
 package org.macnair.gamehelper.helpers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.macnair.gamehelper.HelperListActivity;
 import org.macnair.gamehelper.Player;
 import org.macnair.gamehelper.R;
 import org.macnair.gamehelper.ScoreTranscript;
-import org.macnair.gamehelper.R.id;
-import org.macnair.gamehelper.R.layout;
 
-import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +45,6 @@ public class SimpleScoring
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.simple_scorer, container, false);
 
-		transcripts = new ArrayList<ScoreTranscript>();
 		updatePlayers(null);
 		return rootView;
 	}
