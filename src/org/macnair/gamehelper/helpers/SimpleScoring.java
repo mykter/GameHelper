@@ -10,6 +10,7 @@ import org.macnair.gamehelper.ScoreTranscript;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class SimpleScoring
 		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 		if (newPlayers != null) {
 			for (Player p : newPlayers) {
+				Log.d(NAME,"Adding " + p.getName());
 				transaction.add(R.id.simple_scorer, new ScoreTranscript());
 			}
 			transaction.commit();

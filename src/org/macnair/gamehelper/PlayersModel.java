@@ -3,52 +3,80 @@ package org.macnair.gamehelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.macnair.gamehelper.Player;
 
 // Model of the players that the GameHelper is aware of - handles persistence of those players.
 // A singleton
 public class PlayersModel {
-	private List<Player> players;
+	private List<Player> allPlayers;
+	// Identifies those players that are currently selected
+	private Map<Player, Boolean> currentPlayers;
 	
 	public PlayersModel() {
-		players = new ArrayList<Player>();
-		players.add(new Player(false,"Mike"));
-		players.add(new Player(false,"Emma"));
-		players.add(new Player(false,"Bagnio"));
-		players.add(new Player(false,"Popov"));
-		players.add(new Player(false,"Bonshun"));
-		players.add(new Player(false,"Bootster"));
-		players.add(new Player(false,"Duck"));
-		players.add(new Player(false,"Edward"));
-		players.add(new Player(false,"James"));
+		allPlayers = new ArrayList<Player>();
+		allPlayers.add(new Player(false,"Mike"));
+		allPlayers.add(new Player(false,"Emma"));
+		allPlayers.add(new Player(false,"Bagnio"));
+		allPlayers.add(new Player(false,"Popov"));
+		allPlayers.add(new Player(false,"Bonshun"));
+		allPlayers.add(new Player(false,"Bootster"));
+		allPlayers.add(new Player(false,"Duck"));
+		allPlayers.add(new Player(false,"Edward"));
+		allPlayers.add(new Player(false,"James"));
+		
+		// initially no-one is selected
+		currentPlayers = new HashMap<Player, Boolean>();
 	}
 	
+	public List<Player> getAllPlayers() {
+		return allPlayers;
+	}
 	// Pass in a comparator such as Player.SEEN_ORDER
-	public List<Player> getSortedPlayers(Comparator<Player> comp) {
-		List<Player> sortedPlayers = new ArrayList<Player>(players);
+	public List<Player> getAllPlayers(Comparator<Player> comp) {
+		List<Player> sortedPlayers = new ArrayList<Player>(allPlayers);
 		Collections.sort(sortedPlayers, comp);
 		return sortedPlayers;
 	}
 	
-	public List<Player> getPlayers() {
-		return players;
+	public List<Player> getCurrentPlayers() {
+		List<Player> current = new ArrayList<Player>();
+		for (Player p : allPlayers) {
+			if (currentPlayers.get(p)) {
+				current.add(p);
+			}
+		}
+		return current;
+	}
+	// Pass in a comparator such as Player.SEEN_ORDER
+	public List<Player> getCurrentPlayers(Comparator<Player> comp) {
+		List<Player> sortedPlayers = this.getCurrentPlayers();
+		Collections.sort(sortedPlayers, comp);
+		return sortedPlayers;
 	}
 	
+	public void setCurrentPlayers(List<Player> Players ) {
+		currentPlayers = new HashMap<Player,Boolean>();
+		for (Player p: Players) {
+			currentPlayers.put(p,true);
+		}
+	}
 	// Adds a new named player and returns that player
 	public Player newPlayer(String name) {
 		Player p = new Player(false, name); 
-		players.add(p);
+		allPlayers.add(p);
 		return p;
 	}
 	
 	// Removes p from the players, returns false if the player wasn't found, true otherwise
 	public Boolean deletePlayer(Player p) {
-		if (!players.contains(p))
+		if (!allPlayers.contains(p))
 			return false;
 		
-		players.remove(p);
+		allPlayers.remove(p);
 		return true;
 	}
 }

@@ -70,7 +70,7 @@ public class HelperListActivity extends Activity implements
 	        	// Pass the saved Players as an array argument 
 	        	Bundle bdl = new Bundle();
 	        	bdl.putParcelableArrayList(PlayerDialog.ARG_PLAYERS, 
-	        			(ArrayList<Player>)pm.getSortedPlayers(Player.SEEN_THEN_NAME_ORDER));
+	        			(ArrayList<Player>)pm.getAllPlayers(Player.SEEN_THEN_NAME_ORDER));
 	        	pc.setArguments(bdl);
 	        	
 	        	pc.show(getFragmentManager(),"players");
