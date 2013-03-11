@@ -6,15 +6,15 @@ import java.util.List;
 import org.macnair.gamehelper.helpers.SimpleScoring;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-import android.app.Activity;
 
 /**
  * An activity representing a list of Helpers.
@@ -36,6 +36,11 @@ public class HelperListActivity extends Activity implements
 	private static final String TAG = "MyHelperListActivity";  
 
     private PlayersModel pm = null;
+    private SimpleScoring currentHelper = null;
+    
+    public interface Helper {
+    	public void updatePlayers(List<Player> newPlayers);
+    }
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,7 @@ public class HelperListActivity extends Activity implements
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		SimpleScoring fragment = new SimpleScoring();
+		currentHelper = fragment;
 		ft.replace(R.id.helper_detail_container, (Fragment) fragment);
 		// Then hide the master list
 		ft.hide(fm.findFragmentById(R.id.helper_list));
@@ -111,7 +117,9 @@ public class HelperListActivity extends Activity implements
 			}
 		}
 		
-		// TODO Pass change in players on to active helper
-		Toast.makeText(this, "Got " + selectedPlayers.size() + " players", Toast.LENGTH_SHORT).show();
+		Log.d(TAG, "Got " + selectedPlayers.size() + " players");
+		if (currentHelper != null) {
+			currentHelper.updatePlayers(selectedPlayers);
+		}
 	}
 }
